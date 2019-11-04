@@ -15,4 +15,5 @@ int main()
         y -= (x+0.5);
     }
     cout << fixed << setprecision(2) << y << endl;
+    return 0;
 }
