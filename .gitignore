@@ -1,7 +1,3 @@
-beginner/a.out
-easy/a.out
-medium/a.out
-beginner/.vscode/
-easy/.vscode/
-medium/.vscode/
+*/a.out
+*/.vscode/
 .vscode/
