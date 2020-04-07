@@ -9,7 +9,7 @@ int main()
     {
         int num_activities{};
         string origin{};
-        int laddus{ 0 };
+        int laddus{0};
         cin >> num_activities;
         cin >> origin;
         cin.ignore(32767, '\n');
@@ -17,13 +17,16 @@ int main()
         string activity{};
         int rank{};
         int severity{};
-        for(int i{ 0 }; i < num_activities; ++i)
+        for (int i{0}; i < num_activities; ++i)
         {
             cin >> activity;
             if (activity == "CONTEST_WON")
             {
                 cin >> rank;
-                laddus += (300 + 20 - rank);
+                if (rank <= 20)
+                    laddus += (300 + 20 - rank);
+                else
+                    laddus += 300;
             }
             else if (activity == "TOP_CONTRIBUTOR")
                 laddus += 300;
