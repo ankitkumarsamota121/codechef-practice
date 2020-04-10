@@ -16,15 +16,41 @@ int main()
             num_days = n / 2;
 
         cout << num_days << '\n';
-        for (int i{1}; i <= num_days; ++i)
+
+        for (int day{1}, page{1}; day <= num_days; ++day)
         {
-            int even = 2 * i;
-            if (n == 1)
-                cout << 1 << ' ' << even-1 << '\n';
-            else if (even + 1 > n)
-                cout << 2 << ' ' << even-1 << ' ' << even << '\n';
+            if (day == 1)
+            {
+                if (n == 1)
+                {
+                    cout << 1 << ' ' << page << '\n';
+                }
+                else if (n == 2)
+                {
+                    cout << 2 << ' ' << page << ' ' << page+1 << '\n';
+                }
+                else
+                {
+                    cout << 3 << ' ' << page << ' ' << page+1 << ' ' << page+2 << '\n';
+                    page += 3;
+                }
+            }
+            else if (day == num_days)
+            {
+                if (n%2)
+                {
+                    cout << 2 << ' ' << page << ' ' << page+1 << '\n';
+                }
+                else
+                {
+                    cout << 1 << ' ' << page << '\n';
+                }
+            }
             else
-                cout << 3 << ' ' << even-1 << ' ' << even << ' ' << even+1 << '\n';
+            {
+                cout << 2 << ' ' << page << ' ' << page+1 << '\n';
+                page += 2;
+            }
         }
     }
     return 0;
