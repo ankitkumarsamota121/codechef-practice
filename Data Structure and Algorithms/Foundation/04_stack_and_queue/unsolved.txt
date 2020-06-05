@@ -1,0 +1,4 @@
+D. Maximum Xor Secondary
+C. Minimal string
+B. Alternating Current
+C. Longest Regular Bracket Sequence
