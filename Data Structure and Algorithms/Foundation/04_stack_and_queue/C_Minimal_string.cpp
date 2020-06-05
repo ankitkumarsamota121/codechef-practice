@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define FOREACH(i, c) for (__typeof((c).begin()) i = (c).begin(); i != (c).end(); ++i)
+#define FOREACH(i, c) for (auto &i : c)
 #define FOR(i, a, n) for (register int i = (a); i < (int)(n); ++i)
 #define FORE(i, a, n) for (i = (a); i < (int)(n); ++i)
 #define Size(n) ((int)(n).size())
@@ -20,19 +20,31 @@ using namespace std;
 #define pll pair<ll, ll>
 #define pdd pair<double, double>
 
-ll mpow(ll base, ll exp){
-    ll res = 1;
-    while (exp > 0){
-        if (exp % 2) res = (res * base) % mod;
-        base = (base * base) % mod;
-        exp /= 2;
-    }
-    return res % mod;
-}
-
-
 int main()
 {
+    string s;
+    cin >> s;
+    stack<char> t;
+    string u{};
+    string ss = s;
+    sort(all(ss));
+
+    int j = 0;
+    FOREACH(c, s){
+        t.push(c);
+        if (t.top() == ss[j]){
+            u += t.top();
+            t.pop();
+            j++;
+        }
+    }
+
+    while (!t.empty()){
+        u += t.top();
+        t.pop();
+    }
+
+    cout << u << endl;
     
     return 0;
 }

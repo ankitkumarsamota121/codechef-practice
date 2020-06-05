@@ -20,19 +20,21 @@ using namespace std;
 #define pll pair<ll, ll>
 #define pdd pair<double, double>
 
-ll mpow(ll base, ll exp){
+ll mpow(ll base, ll exp)
+{
     ll res = 1;
-    while (exp > 0){
-        if (exp % 2) res = (res * base) % mod;
+    while (exp > 0)
+    {
+        if (exp % 2)
+            res = (res * base) % mod;
         base = (base * base) % mod;
         exp /= 2;
     }
     return res % mod;
 }
 
-
 int main()
 {
-    
+
     return 0;
 }

@@ -14,15 +14,15 @@ using namespace std;
 #define F first
 #define S second
 #define mk make_pair
-#define mod 1000000007 // 10e9 + 7
+#define mod 1000000007  // 10e9 + 7
 
 #define pii pair<int, int>
 #define pll pair<ll, ll>
 #define pdd pair<double, double>
 
-ll mpow(ll base, ll exp){
+ll mpow(ll base, ll exp) {
     ll res = 1;
-    while (exp > 0){
+    while (exp > 0) {
         if (exp % 2) res = (res * base) % mod;
         base = (base * base) % mod;
         exp /= 2;
@@ -30,9 +30,24 @@ ll mpow(ll base, ll exp){
     return res % mod;
 }
 
-
-int main()
-{
-    
+int main() {
+    int t;
+    ll n;
+    cin >> t;
+    while (t--) {
+        cin >> n;
+        if (n % 2) {
+            cout << (n / 2) << endl;
+        } else {
+            ll factor = 2;
+            ll temp = n;
+            while (temp % 2 == 0) {
+                temp /= 2;
+                factor *= 2;
+            }
+            // cout << "F : " << factor << endl;
+            cout << (n / factor) << endl;
+        }
+    }
     return 0;
 }

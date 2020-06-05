@@ -20,19 +20,29 @@ using namespace std;
 #define pll pair<ll, ll>
 #define pdd pair<double, double>
 
-ll mpow(ll base, ll exp){
-    ll res = 1;
-    while (exp > 0){
-        if (exp % 2) res = (res * base) % mod;
-        base = (base * base) % mod;
-        exp /= 2;
-    }
-    return res % mod;
-}
-
-
 int main()
 {
-    
+    string S;
+    cin >> S;
+    stack<char> st;
+    bool flag = true;
+
+    FOR(i,0, S.length()){
+        if (!st.empty() && S[i] == st.top()){
+            st.pop();
+        }
+        else{
+            st.push(S[i]);
+            if (st.size() > 2){
+                flag = false;
+                break;
+            }
+        }
+    }
+
+    if (!st.empty())
+        flag = false;
+
+    cout << (flag ? "Yes\n" : "No\n");
     return 0;
 }
