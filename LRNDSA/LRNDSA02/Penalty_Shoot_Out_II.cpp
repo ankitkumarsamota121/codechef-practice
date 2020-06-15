@@ -64,6 +64,27 @@ void a_k_s() {
 
 int main() {
     a_k_s();
-
+    w(t) {
+        ll n, a = 0, b = 0, amiss = 0, bmiss = 0, ans = -1;
+        string s;
+        cin >> n;
+        cin >> s;
+        FOR(i, 0, 2 * n) {
+            if (i & 1) {
+                (s[i] == '1') ? b++ : bmiss++;
+            } else {
+                (s[i] == '1') ? a++ : amiss++;
+            }
+            if ((a + bmiss >= n + 1) or (b + amiss >= n + 1)) {
+                ans = i + 1;
+                break;
+            }
+            // cout << a << ' ' << amiss << endl;
+        }
+        if (ans == -1) {
+            ans = 2 * n;
+        }
+        cout << ans << endl;
+    }
     return 0;
 }
