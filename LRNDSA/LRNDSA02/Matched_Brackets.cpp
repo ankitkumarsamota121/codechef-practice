@@ -64,13 +64,52 @@ void a_k_s() {
 
 int main() {
     a_k_s();
-    mk(arr, 1000000, ll);
-    FOR(i, 0, 1000000) {
-        arr[i] = i;
+
+    int n;
+    cin >> n;
+    int a[100005];
+    int depth = 0, max_depth = -1;
+    int pos = 0;
+
+    bool flag = false;
+    int count = 0, oc = 0, s_pos = 0;
+    int max_pos = -1, max_count = -1;
+
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
     }
 
-    FOR(i, 0, 1000000) {
-        cout << arr[i] << endl;
+    for (int i = 1; i <= n; i++) {
+        // cin >> a[i];
+
+        // Nesting Depth
+        a[i] == 1 ? depth++ : depth--;
+        if (depth > max_depth) {
+            pos = i;
+            max_depth = depth;
+        }
+
+        // Maximum Symbols
+        if (!flag) {
+            flag = true;
+            s_pos = i;
+            count = 1;
+            oc = 1;
+        } else {
+            count++;
+            a[i] == 1 ? oc++ : oc--;
+            if (oc == 0) {
+                flag = false;
+                if (count > max_count) {
+                    max_count = count;
+                    max_pos = s_pos;
+                }
+            }
+        }
     }
+
+    cout << max_depth << ' ' << pos << ' ';
+    cout << max_count << ' ' << max_pos << endl;
+
     return 0;
 }

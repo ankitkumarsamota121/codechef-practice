@@ -64,13 +64,6 @@ void a_k_s() {
 
 int main() {
     a_k_s();
-    mk(arr, 1000000, ll);
-    FOR(i, 0, 1000000) {
-        arr[i] = i;
-    }
 
-    FOR(i, 0, 1000000) {
-        cout << arr[i] << endl;
-    }
     return 0;
 }

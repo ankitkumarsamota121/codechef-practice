@@ -64,13 +64,16 @@ void a_k_s() {
 
 int main() {
     a_k_s();
-    mk(arr, 1000000, ll);
-    FOR(i, 0, 1000000) {
-        arr[i] = i;
-    }
-
-    FOR(i, 0, 1000000) {
-        cout << arr[i] << endl;
+    w(t) {
+        ll n, s, m = INT_MAX;
+        ll ans = 0;
+        cin >> n;
+        FOR(i, 0, n) {
+            cin >> s;
+            m = min(s, m);
+            ans += m;
+        }
+        cout << ans << endl;
     }
     return 0;
 }

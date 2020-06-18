@@ -64,13 +64,29 @@ void a_k_s() {
 
 int main() {
     a_k_s();
-    mk(arr, 1000000, ll);
-    FOR(i, 0, 1000000) {
-        arr[i] = i;
-    }
-
-    FOR(i, 0, 1000000) {
-        cout << arr[i] << endl;
+    w(t) {
+        string s;
+        cin >> s;
+        ll cntO = 0;
+        ll sum = 0;
+        ll m = 0;
+        FOR(i, 0, s.length()) {
+            if (s[i] == '<') {
+                cntO++;
+            } else {
+                if (cntO > 0) {
+                    sum++;
+                }
+                cntO--;
+                if (cntO == 0) {
+                    if (m < sum)
+                        m = sum;
+                }
+            }
+            if (cntO == -1)
+                break;
+        }
+        cout << m * 2 << endl;
     }
     return 0;
 }
