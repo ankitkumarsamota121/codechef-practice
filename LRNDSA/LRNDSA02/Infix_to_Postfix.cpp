@@ -62,8 +62,66 @@ void a_k_s() {
     // #endif
 }
 
+int prec(char c) {
+    switch (c) {
+        case '^':
+            return 3;
+
+        case '*':
+        case '/':
+            return 2;
+
+        case '+':
+        case '-':
+            return 1;
+
+        default:
+            break;
+    }
+    return 0;
+}
+
 int main() {
     a_k_s();
+
+    w(t) {
+        int n;
+        string s;
+        string ans{};
+        stack<char> st;
+        cin >> n;
+        cin >> s;
+
+        for (auto c : s) {
+            if (c >= 'A' and c <= 'Z') {
+                ans += c;
+            } else if (c == ')') {
+                while (st.top() != '(') {
+                    ans += st.top();
+                    st.pop();
+                }
+                st.pop();
+            } else {
+                if (st.empty() or c == '(') {
+                    st.push(c);
+                    continue;
+                }
+                int p = prec(c);
+                while (!st.empty() and prec(st.top()) >= p) {
+                    ans += st.top();
+                    st.pop();
+                }
+                st.push(c);
+            }
+        }
+
+        while (!st.empty()) {
+            ans += st.top();
+            st.pop();
+        }
+
+        cout << ans << endl;
+    }
 
     return 0;
 }
