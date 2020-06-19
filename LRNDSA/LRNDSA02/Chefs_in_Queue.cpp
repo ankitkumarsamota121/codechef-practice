@@ -65,28 +65,35 @@ void a_k_s() {
 int main() {
     a_k_s();
 
-    stack<int> S;
-    int n, k, x;
-    vector<int> V;
-
-    int nearest[n]{0};
-
+    int n, k;
     cin >> n >> k;
-    FOR(i, 0, n) {
-        cin >> x;
-        V.push_back(x);
+
+    int v[1000005];
+    int nearest[1000005];
+    stack<int> st;
+
+    FOR(i, 1, n + 1) {
+        cin >> v[i];
     }
 
-    nearest[n - 1] = n - 1;
-    for (int i = n - 2; i >= 0; i--) {
-        if (V[i] > V[i + 1]) {
-            nearest[i] = i + 1;
+    for (int i = n; i > 0; i--) {
+        if (st.empty() or v[i] > v[st.top()]) {
+            nearest[i] = (st.empty() ? i : st.top());
+            st.push(i);
         } else {
-            nearest[i] = nearest[i + 1];
+            while (!st.empty() and v[i] <= v[st.top()]) {
+                st.pop();
+            }
+            nearest[i] = (st.empty() ? i : st.top());
+            st.push(i);
         }
     }
 
-    int i = 0;
+    ll ans = 1;
+    for (int i = 1; i <= n; i++) {
+        ans = (ans * (nearest[i] - i + 1)) % mod;
+    }
+    cout << ans % mod << endl;
 
     return 0;
 }
