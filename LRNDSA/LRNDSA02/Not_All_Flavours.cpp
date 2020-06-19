@@ -62,65 +62,41 @@ void a_k_s() {
     // #endif
 }
 
-int prec(char c) {
-    switch (c) {
-        case '^':
-            return 3;
-
-        case '*':
-        case '/':
-            return 2;
-
-        case '+':
-        case '-':
-            return 1;
-
-        default:
-            break;
-    }
-    return 0;
-}
-
 int main() {
     a_k_s();
 
     w(t) {
-        int n;
-        string s;
-        string ans{};
-        stack<char> st;
-        cin >> n;
-        cin >> s;
+        int n, k;
+        cin >> n >> k;
+        int a[n];
+        int freq[k + 1]{0};
+        int num_flavours = 0;
 
-        for (auto c : s) {
-            if (c >= 'A' and c <= 'Z') {
-                ans += c;
-            } else if (c == ')') {
-                while (st.top() != '(') {
-                    ans += st.top();
-                    st.pop();
-                }
-                st.pop();
-            } else {
-                if (st.empty() or c == '(') {
-                    st.push(c);
-                    continue;
-                }
-                int p = prec(c);
-                while (!st.empty() and prec(st.top()) >= p) {
-                    ans += st.top();
-                    st.pop();
-                }
-                st.push(c);
+        FOR(i, 0, n) {
+            cin >> a[i];
+        }
+
+        int l, r, max_len = -1;
+        l = r = 0;
+        while (r < n) {
+            int temp = a[r];
+            // cout << temp << ' ' << freq[temp] << endl;
+            if (freq[temp] == 0) {
+                num_flavours++;
             }
-        }
+            freq[temp]++;
 
-        while (!st.empty()) {
-            ans += st.top();
-            st.pop();
+            while (num_flavours == k) {
+                freq[a[l]]--;
+                if (freq[a[l]] == 0) {
+                    num_flavours--;
+                }
+                l++;
+            }
+            r++;
+            max_len = max(r - l, max_len);
         }
-
-        cout << ans << endl;
+        cout << max_len << endl;
     }
 
     return 0;
