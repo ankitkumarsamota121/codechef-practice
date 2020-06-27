@@ -65,5 +65,53 @@ void a_k_s() {
 int main() {
     a_k_s();
 
+    ll n;
+    ll a[200005]{0};
+    int pre_cnt[200005]{0};
+    w(t) {
+        cin >> n;
+        bool flag = true;
+        vector<ll> ans;
+
+        memset(pre_cnt, 0, sizeof(pre_cnt));
+        memset(a, 0, sizeof(a));
+
+        FOR(i, 0, n) {
+            cin >> a[i];
+            pre_cnt[a[i]]++;
+            if (pre_cnt[a[i]] > 2) {
+                flag = false;
+            }
+        }
+
+        if (flag) {
+            sort(a, a + n);
+
+            if (pre_cnt[a[n - 1]] > 1) {
+                flag = false;
+            } else {
+                for (int i = 0; i < n - 1; i += 2) {
+                    ans.push_back(a[i]);
+                }
+
+                ans.push_back(a[n - 1]);
+
+                for (int i = ((n & 1) ? n - 2 : n - 3); i > 0; i -= 2) {
+                    ans.push_back(a[i]);
+                }
+            }
+        }
+
+        if (flag) {
+            cout << "YES\n";
+            for (auto x : ans) {
+                cout << x << ' ';
+            }
+            cout << endl;
+        } else {
+            cout << "NO\n";
+        }
+    }
+
     return 0;
 }
