@@ -65,5 +65,59 @@ void a_k_s() {
 int main() {
     a_k_s();
 
+    ll n, k;
+    ll a[100005];
+    ll bit_count[32]{0};
+    ll bits[32]{0};
+    w(t) {
+        memset(a, 0, sizeof(a));
+        memset(bit_count, 0, sizeof(bit_count));
+        memset(bits, 0, sizeof(bits));
+
+        cin >> n >> k;
+
+        for (ll i = 0; i < n; i++) {
+            cin >> a[i];
+            ll x = a[i];
+            ll j = 0;
+            while (x) {
+                if (x & 1) {
+                    bit_count[j]++;
+                }
+                j++;
+                x >>= 1;
+            }
+        }
+
+        for (ll i = 0; i < 32; i++) {
+            bits[i] = (bit_count[i] * (1ll << i));
+            // cout << bits[i] << ' ';
+        }
+        // cout << endl;
+
+        ll ans = 0;
+        while (k--) {
+            ll m = -1;
+            ll mi = -1;
+            for (ll i = 0; i < 32; i++) {
+                if (bits[i] > m) {
+                    m = bits[i];
+                    mi = i;
+                }
+            }
+
+            bits[mi] = 0;
+            ans += (1ll << mi);
+        }
+
+        cout << ans << endl;
+
+        // ll s = 0;
+        // for (ll i = 0; i < n; i++) {
+        //     s += (ans & a[i]);
+        // }
+        // cout << s << endl;
+    }
+
     return 0;
 }
