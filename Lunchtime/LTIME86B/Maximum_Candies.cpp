@@ -65,54 +65,37 @@ void a_k_s() {
 int main() {
     a_k_s();
 
-    ll n, a, b;
+    int n, m, x, y;
+    int mat[105][105];
+    int a[10005];
     w(t_) {
-        cin >> n;
-        bool flag = true;
-        map<ll, ll> A, B;
-        FOR(i, 0, n) {
-            cin >> a;
-            A[a]++;
+        cin >> n >> m >> x >> y;
+        int ans = 0;
+
+        FOR(i, 0, n + 1) {
+            mat[i][0] = 0;
+        }
+        FOR(i, 0, m + 1) {
+            mat[0][i] = 0;
         }
 
-        FOR(i, 0, n) {
-            cin >> b;
-            if (A.count(b)) {
-                A[b] -= 1;
-                if (A[b] == 0) A.erase(b);
-            } else {
-                B[b]++;
+        FOR(i, 1, n + 1) {
+            FOR(j, 1, m + 1) {
+                mat[i][j] = y - max(mat[i - 1][j], mat[i][j - 1]);
+                mat[i][j] = min(mat[i][j], x);
+                // ans += mat[i][j];
             }
         }
 
-        vector<int> v;
-        for (auto p : A) {
-            if (p.ss & 1) {
-                flag = false;
-            } else {
-                ll d = p.ss / 2;
-                while (d--) v.push_back(p.ff);
+        FOR(i, 1, n + 1) {
+            FOR(j, 1, m + 1) {
+                // cout << mat[i][j] << ' ';
+                ans += mat[i][j];
             }
+            // cout << endl;
         }
-        for (auto p : B)
-            if (p.ss & 1) {
-                flag = false;
-            } else {
-                ll d = p.ss / 2;
-                while (d--) v.push_back(p.ff);
-            }
 
-        if (flag) {
-            sort(all(v));
-            ll ans = 0;
-            ll s = v.size() / 2;
-            FOR(i, 0, s) {
-                ans += v[i];
-            }
-            cout << ans << endl;
-        } else {
-            cout << -1 << endl;
-        }
+        cout << ans << endl;
     }
 
     return 0;

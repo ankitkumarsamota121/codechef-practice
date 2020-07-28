@@ -62,57 +62,52 @@ void a_k_s() {
     // #endif
 }
 
+string binRepr(ll n) {
+    string str = bitset<64>(n).to_string();
+    int i = 0;
+    while (str[i] == '0') i++;
+    string res = str.substr(i);
+    return res;
+}
+
+ll binInt(string s) {
+    ll res = bitset<64>(s).to_ullong();
+    return res;
+}
+
+ll binConcat(ll x, ll y) {
+    string binX = binRepr(x);
+    string binY = binRepr(y);
+
+    string binXplusY = binX + binY;
+    string binYplusX = binY + binX;
+
+    ll XplusY = binInt(binXplusY);
+    ll YplusX = binInt(binYplusX);
+
+    return XplusY - YplusX;
+}
+
 int main() {
     a_k_s();
 
-    ll n, a, b;
+    ll n;
+    ll a[100005];
     w(t_) {
         cin >> n;
-        bool flag = true;
-        map<ll, ll> A, B;
         FOR(i, 0, n) {
-            cin >> a;
-            A[a]++;
+            cin >> a[i];
         }
+
+        ll ans = INT_MIN;
 
         FOR(i, 0, n) {
-            cin >> b;
-            if (A.count(b)) {
-                A[b] -= 1;
-                if (A[b] == 0) A.erase(b);
-            } else {
-                B[b]++;
+            FOR(j, 0, n) {
+                ans = max(binConcat(a[i], a[j]), ans);
             }
         }
 
-        vector<int> v;
-        for (auto p : A) {
-            if (p.ss & 1) {
-                flag = false;
-            } else {
-                ll d = p.ss / 2;
-                while (d--) v.push_back(p.ff);
-            }
-        }
-        for (auto p : B)
-            if (p.ss & 1) {
-                flag = false;
-            } else {
-                ll d = p.ss / 2;
-                while (d--) v.push_back(p.ff);
-            }
-
-        if (flag) {
-            sort(all(v));
-            ll ans = 0;
-            ll s = v.size() / 2;
-            FOR(i, 0, s) {
-                ans += v[i];
-            }
-            cout << ans << endl;
-        } else {
-            cout << -1 << endl;
-        }
+        cout << ans << endl;
     }
 
     return 0;
