@@ -65,13 +65,15 @@ void a_k_s() {
 int main() {
     a_k_s();
 
-    string s = "coding";
-
-    // p = s;
-    // p += 3;
-
-    // cout << p << endl;
-    cout << *(&s) << endl;
+    ll p, h;
+    w(t_) {
+        cin >> h >> p;
+        while (p > 0) {
+            h -= p;
+            p >>= 1;
+        }
+        cout << (h <= 0 ? 1 : 0) << endl;
+    }
 
     return 0;
 }
