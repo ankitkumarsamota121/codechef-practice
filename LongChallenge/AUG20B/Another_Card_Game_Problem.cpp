@@ -65,5 +65,18 @@ void a_k_s() {
 int main() {
     a_k_s();
 
+    ll pc, pr, a, b;
+    w(T) {
+        cin >> pc >> pr;
+        a = ((pc % 9 == 0) ? (pc / 9) : (pc / 9) + 1);
+        b = ((pr % 9 == 0) ? (pr / 9) : (pr / 9) + 1);
+
+        if (b <= a) {
+            cout << 1 << ' ' << b << endl;
+        } else {
+            cout << 0 << ' ' << a << endl;
+        }
+    }
+
     return 0;
 }

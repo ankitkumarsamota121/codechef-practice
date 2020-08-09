@@ -62,8 +62,55 @@ void a_k_s() {
     // #endif
 }
 
+ll num_clashes(ll t, unordered_map<ll, ll> m) {
+    ll res = 0;
+    for (auto p : m) {
+        if (p.ss > t) {
+            res += (p.ss - t + 1);
+        }
+    }
+    return res;
+}
+
 int main() {
     a_k_s();
+
+    ll n, k;
+    ll a[1005], tables[1005];
+    w(t_) {
+        unordered_map<ll, ll> m;
+        memset(tables, 0, sizeof(tables));
+
+        cin >> n >> k;
+
+        FOR(i, 0, n) {
+            cin >> a[i];
+            m[a[i]]++;
+        }
+
+        ll ans = 0;
+
+        unordered_map<ll, ll> prev;
+        ll t = 0;
+        FOR(i, 0, n) {
+            if (prev[a[i]] == t) {
+                t++;
+            }
+            tables[i] = t;
+            prev[a[i]] = t;
+        }
+
+        // while (t) {
+        //     ll temp = (k * t);
+        //     temp += num_clashes(t, m);
+        //     ans = min(temp, ans);
+        //     t--;
+        // }
+
+        ans = t;
+
+        cout << ans << endl;
+    }
 
     return 0;
 }

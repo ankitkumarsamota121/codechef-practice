@@ -65,5 +65,20 @@ void a_k_s() {
 int main() {
     a_k_s();
 
+    ll n, a, k;
+    w(t_) {
+        cin >> n >> k;
+        ll mx = INT_MAX;
+        ll ans = -1;
+        FOR(i, 0, n) {
+            cin >> a;
+            if (k % a == 0 && (k / a) < mx) {
+                mx = k / a;
+                ans = a;
+            }
+        }
+        cout << ans << endl;
+    }
+
     return 0;
 }

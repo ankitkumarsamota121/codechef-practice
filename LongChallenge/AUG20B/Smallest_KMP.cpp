@@ -65,5 +65,38 @@ void a_k_s() {
 int main() {
     a_k_s();
 
+    string str, s;
+    w(t_) {
+        cin >> str >> s;
+
+        unordered_map<char, ll> m;
+
+        for (auto c : str) {
+            m[c]++;
+        }
+
+        for (auto c : s) {
+            m[c]--;
+        }
+
+        string x, ans;
+
+        ans = s + x;
+
+        for (char ch = 'a'; ch <= 'z'; ch++) {
+            string temp;
+            for (char c = 'a'; c <= ch; c++) {
+                temp += string(m[c], c);
+            }
+            temp += s;
+            for (char c = ch + 1; c <= 'z'; c++) {
+                temp += string(m[c], c);
+            }
+            ans = min(ans, temp);
+        }
+
+        cout << ans << endl;
+    }
+
     return 0;
 }
