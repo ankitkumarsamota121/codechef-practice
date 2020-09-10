@@ -69,11 +69,17 @@ void a_k_s() {
 int main() {
     a_k_s();
 
-    long double d, e;
-    cin >> d >> e;
+    ll n, a;
+    w(t_) {
+        cin >> n;
+        unordered_set<int> s;
+        FOR(i, 0, n) {
+            cin >> a;
+            if (a) s.insert(a);
+        }
 
-    cout << fixed << setprecision(3) << d << endl;
-    cout << fixed << setprecision(9) << e << endl;
+        cout << s.size() << endl;
+    }
 
     return 0;
 }

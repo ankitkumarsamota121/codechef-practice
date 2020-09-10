@@ -68,12 +68,33 @@ void a_k_s() {
 
 int main() {
     a_k_s();
+    int n;
 
-    long double d, e;
-    cin >> d >> e;
+    w(t_) {
+        cin >> n;
+        int a[n];
+        bool flag = false;
+        FOR(i, 0, n) {
+            cin >> a[i];
+            if (!a[i]) flag = true;
+        }
 
-    cout << fixed << setprecision(3) << d << endl;
-    cout << fixed << setprecision(9) << e << endl;
+        sort(a, a + n, greater<int>());
+
+        int ctr = 1;
+        if (a[0] == 0) {
+            ctr = 0;
+        }
+
+        for (int j = 0; j < n - 1; j++) {
+            if (a[j] == a[j + 1] || a[j + 1] == 0)
+                continue;
+            else
+                ctr++;
+        }
+
+        cout << ctr << endl;
+    }
 
     return 0;
 }
