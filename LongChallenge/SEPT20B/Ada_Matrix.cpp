@@ -66,23 +66,61 @@ void a_k_s() {
     // #endif
 }
 
+bool isSorted(int mat[64][64], int n) {
+    int c = 1;
+    FOR(i, 0, n) {
+        FOR(j, 0, n) {
+            if (mat[i][j] != c) {
+                return false;
+            }
+            c++;
+        }
+    }
+    return true;
+}
+
+int sum(int a[], int n) {
+    int res = 0;
+    FOR(i, 0, n) {
+        res += a[i];
+    }
+    return res;
+}
+
 int main() {
     a_k_s();
 
-    for (ll n = 1; n < 1000; n++) {
-        ll sum = (n * (n + 1)) / 2;
-        ll ans1 = 0;
-        if (sum & 1)
-            ans1 = 0;
+    int n;
+    int mat[64][64];
+    int a[64];
+    w(t_) {
+        memset(a, 0, sizeof a);
 
-        double s = (double)(n * (n + 1)) / 2;
-        double tmp = (double)n;
-        double myRes = (sqrt(4 * s + 1) - 1) / 2;
-        cout << n << " ==> " << myRes << ' ';
-        if (int(myRes) == myRes) {
-            cout << "+++++++++++++++++++HERE";
+        cin >> n;
+        FOR(i, 0, n) {
+            FOR(j, 0, n) {
+                cin >> mat[i][j];
+            }
         }
-        cout << endl;
+
+        FOR(i, 0, n) {
+            a[i] = (mat[0][i] == i + 1) ? 0 : 1;
+        }
+
+        int c = 0;
+        while (sum(a, n) > 0) {
+            int i = n - 1;
+            while (a[i] != 1 && i > 0) i--;
+            if (i == 0) break;
+
+            c++;
+            a[i] = 0;
+            FOR(j, 1, i) {
+                a[j] = (1 - a[j]);
+            }
+        }
+
+        cout << c << endl;
     }
 
     return 0;

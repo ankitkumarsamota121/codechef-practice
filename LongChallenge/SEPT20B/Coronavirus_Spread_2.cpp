@@ -26,7 +26,7 @@ using namespace std;
 #define vi vector<int>
 #define mii map<int, int>
 #define pqb priority_queue<int>
-#define pqs priority_queue<int, vi, greater<int> >
+#define pqs priority_queue<int, vi, greater<int>>
 
 #define setbits(x) __builtin_popcountll(x)
 #define zrobits(x) __builtin_ctzll(x)
@@ -66,24 +66,70 @@ void a_k_s() {
     // #endif
 }
 
-int main() {
-    a_k_s();
+int ans[10];
 
-    for (ll n = 1; n < 1000; n++) {
-        ll sum = (n * (n + 1)) / 2;
-        ll ans1 = 0;
-        if (sum & 1)
-            ans1 = 0;
+int bfs(vector<pair<int, double>> gr[], queue<pair<int, double>> Q, int visited[]) {
+    int count = 0;
 
-        double s = (double)(n * (n + 1)) / 2;
-        double tmp = (double)n;
-        double myRes = (sqrt(4 * s + 1) - 1) / 2;
-        cout << n << " ==> " << myRes << ' ';
-        if (int(myRes) == myRes) {
-            cout << "+++++++++++++++++++HERE";
+    while (!Q.empty()) {
+        auto p = Q.front();
+        Q.pop();
+        for (int j = 0; j < gr[p.ff].size(); j++) {
+            if (visited[gr[p.ff][j].ff] == 0 and p.ss < gr[p.ff][j].ss) {
+                visited[gr[p.ff][j].ff]++;
+                Q.push(gr[p.ff][j]);
+                count++;
+            }
         }
-        cout << endl;
     }
 
+    return count;
+}
+
+int main() {
+    int n;
+    int v[10];
+    w(t_) {
+        cin >> n;
+        FOR(i, 1, n + 1) {
+            cin >> v[i];
+        }
+
+        vector<pair<int, double>> gr[10];
+        FOR(i, 1, n + 1) {
+            FOR(j, 1, n + 1) {
+                if (i != j) {
+                    if (i > j and v[i] - v[j] < 0) {
+                        gr[i].push_back({j, (double)(i - j) / (v[j] - v[i])});
+                    }
+                    if (i < j and v[i] - v[j] > 0) {
+                        gr[i].push_back({j, (double)(j - i) / (v[i] - v[j])});
+                    }
+                }
+            }
+        }
+
+        int best = INT_MAX;
+        int worst = INT_MIN;
+
+        FOR(i, 1, n + 1) {
+            int visited[10]{0};
+            queue<pair<int, double>> Q;
+            visited[i]++;
+            ans[i] = 1;
+
+            for (int j = 0; j < gr[i].size(); j++) {
+                visited[gr[i][j].ff]++;
+                Q.push(gr[i][j]);
+                ans[i]++;
+            }
+            ans[i] += bfs(gr, Q, visited);
+
+            best = min(ans[i], best);
+            worst = max(ans[i], worst);
+        }
+
+        cout << best << ' ' << worst << endl;
+    }
     return 0;
 }

@@ -66,23 +66,32 @@ void a_k_s() {
     // #endif
 }
 
+ll f(ll n) {
+    return (n * (n + 1)) / 2;
+}
+
 int main() {
     a_k_s();
 
-    for (ll n = 1; n < 1000; n++) {
-        ll sum = (n * (n + 1)) / 2;
-        ll ans1 = 0;
-        if (sum & 1)
-            ans1 = 0;
+    ll n = 0;
+    w(t_) {
+        cin >> n;
 
-        double s = (double)(n * (n + 1)) / 2;
-        double tmp = (double)n;
-        double myRes = (sqrt(4 * s + 1) - 1) / 2;
-        cout << n << " ==> " << myRes << ' ';
-        if (int(myRes) == myRes) {
-            cout << "+++++++++++++++++++HERE";
+        ll sum = (n * (n + 1) / 2);
+        if (sum & 1) {
+            cout << 0 << endl;
+            continue;
         }
-        cout << endl;
+
+        ll ans = 0;
+
+        double mid = ((sqrt(4 * (double)sum + 1) - 1) / 2);
+        ll x = (ll)mid;
+        if (x == mid) {
+            ans += f(x - 1) + f(n - x - 1);
+        }
+        ans += n - x;
+        cout << ans << endl;
     }
 
     return 0;
