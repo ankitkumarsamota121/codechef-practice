@@ -24,16 +24,16 @@ using namespace std;
 #define vi vector<int>
 #define mii map<int, int>
 #define pqb priority_queue<int>
-#define pqs priority_queue<int, vi, greater<int> >
+#define pqs priority_queue<int, vi, greater<int>>
 
-#define setbits(x) __builtin_popcheckll(x)
+#define setbits(x) __builtin_popcountll(x)
 #define zrobits(x) __builtin_ctzll(x)
 
 #define mod 1000000007
 #define inf 1e18
 
 #define ps(x, y) fixed << setprecision(y) << x
-#define mk(arr, n, type) type* arr = new type[n];
+#define mk(arr, n, type) type *arr = new type[n];
 #define w(x)  \
     int x;    \
     cin >> x; \
@@ -61,65 +61,55 @@ void a_k_s() {
     //     freopen("output.txt", "w", stdout);
     // #endif
 }
-ll a[20005], b[20005];
 
-ll check(ll n, ll x, ll Q) {
-    ll c = 0;
-
-    ll i = 0;
-    ll j = n - 1;
-
-    while (i < n) {
-        while (a[i] + b[j] > x) j--;
-        c += j + 1;
-        if (c >= Q) {
-            return true;
+bool check(ll count, map<ll, vector<ll>> &m) {
+    for (auto p : m) {
+        if (p.ss[0] == 0) {
+            count -= p.ss[1];
+            if (count <= 0) return false;
+        } else {
+            if (count >= p.ss[1]) count += p.ss[2];
         }
-        i++;
     }
-
-    return false;
+    return true;
 }
 
-ll solve(ll n, ll Q, ll s, ll e) {
-    ll mid = (s + e) / 2;
-    ll res;
+ll solve(ll s, ll e, map<ll, vector<ll>> &m) {
+    ll ans;
 
     while (s <= e) {
-        mid = (s + e) / 2;
-        if (check(n, mid, Q)) {
+        ll mid = (s + e) / 2;
+        if (check(mid, m)) {
+            ans = mid;
             e = mid - 1;
-            res = mid;
         } else {
             s = mid + 1;
         }
     }
 
-    return res;
+    return ans;
 }
 
 int main() {
     a_k_s();
 
-    ll n, p, q;
     w(t_) {
-        cin >> n >> q;
-        FOR(i, 0, n) {
-            cin >> a[i];
+        ll x, p, q, r, u, v, d, c, e = 1;
+        map<ll, vector<ll>> m;
+        cin >> x;
+        cin >> d;
+        FOR(i, 0, d) {
+            cin >> u >> v;
+            m[u] = {0, v};
+            e += v;
         }
-        FOR(i, 0, n) {
-            cin >> b[i];
+        cin >> c;
+        FOR(i, 0, c) {
+            cin >> p >> q >> r;
+            m[p] = {1, q, r};
         }
 
-        sort(a, a + n);
-        sort(b, b + n);
-
-        n = (n > 500 ? 501 : n);
-
-        while (q--) {
-            cin >> p;
-            cout << solve(n, p, 2, a[n - 1] + b[n - 1]) << '\n';
-        }
+        cout << solve(1, e, m) << '\n';
     }
 
     return 0;
