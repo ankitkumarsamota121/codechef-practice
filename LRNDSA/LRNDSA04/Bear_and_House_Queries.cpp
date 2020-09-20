@@ -62,12 +62,82 @@ void a_k_s() {
     // #endif
 }
 
+pii findH() {
+    int x = 0, s = 0, e = 1000;
+    int y;
+
+    string response;
+
+    while (s <= e) {
+        int mid = (s + e) / 2;
+        cout << '?' << ' ' << x << ' ' << mid << endl;
+        cin >> response;
+
+        if (response == "YES") {
+            s = mid + 1;
+            y = mid;
+        } else {
+            e = mid - 1;
+        }
+    }
+
+    return make_pair(x, y);
+}
+
+pii findV1() {
+    int y = 0, s = 0, e = 1000;
+    int x;
+
+    string response;
+
+    while (s <= e) {
+        int mid = (s + e) / 2;
+        cout << '?' << ' ' << mid << ' ' << y << endl;
+        cin >> response;
+
+        if (response == "YES") {
+            s = mid + 1;
+            x = mid;
+        } else {
+            e = mid - 1;
+        }
+    }
+
+    return make_pair(x, y);
+}
+
+pii findV2(int y) {
+    int x, s = 0, e = 1000;
+
+    string response;
+
+    while (s <= e) {
+        int mid = (s + e) / 2;
+        cout << '?' << ' ' << mid << ' ' << y << endl;
+        cin >> response;
+
+        if (response == "YES") {
+            s = mid + 1;
+            x = mid;
+        } else {
+            e = mid - 1;
+        }
+    }
+
+    return make_pair(x, y);
+}
+
 int main() {
-    a_k_s();
+    // a_k_s();
 
-    int a[] = {1, 2, 3, 4, 5, 6};
+    pii H = findH();
+    pii V1 = findV1();
+    pii V2 = findV2(2 * V1.ff);
 
-    cout << (upper_bound(a, a + 6, 4) - a) << endl;
+    int s1 = (H.ss - V2.ss) * (V2.ff);
+    int s2 = 2 * V1.ff * V2.ss;
+
+    cout << "! " << s1 + s2 << endl;
 
     return 0;
 }

@@ -65,9 +65,27 @@ void a_k_s() {
 int main() {
     a_k_s();
 
-    int a[] = {1, 2, 3, 4, 5, 6};
+    w(t_) {
+        int n, a[100005];
+        vector<int> v;
+        cin >> n;
+        FOR(i, 0, n) {
+            cin >> a[i];
+            auto it = upper_bound(all(v), a[i]);
+            if (it == v.end()) {
+                v.push_back(a[i]);
+            } else {
+                *it = a[i];
+            }
+        }
 
-    cout << (upper_bound(a, a + 6, 4) - a) << endl;
+        cout << v.size() << ' ';
+
+        for (auto x : v) {
+            cout << x << ' ';
+        }
+        cout << '\n';
+    }
 
     return 0;
 }

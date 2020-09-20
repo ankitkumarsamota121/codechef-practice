@@ -33,7 +33,7 @@ using namespace std;
 #define inf 1e18
 
 #define ps(x, y) fixed << setprecision(y) << x
-#define mk(arr, n, type) type *arr = new type[n];
+#define mk(arr, n, type) type* arr = new type[n];
 #define w(x)  \
     int x;    \
     cin >> x; \
@@ -61,13 +61,55 @@ void a_k_s() {
     //     freopen("output.txt", "w", stdout);
     // #endif
 }
+ll a[20005], b[20005];
+
+ll count(ll n, ll x) {
+    ll c = 0;
+    FOR(i, 0, n) {
+        c += (upper_bound(b, b + n, x - a[i]) - b);
+    }
+    return c;
+}
+
+ll solve(ll n, ll Q) {
+    ll s = 0, e = (a[n - 1] + b[n - 1]);
+    ll res;
+
+    while (s <= e) {
+        ll mid = (s + e) / 2;
+        ll c = count(n, mid);
+        if (c >= Q) {
+            e = mid - 1;
+            res = mid;
+        } else {
+            s = mid + 1;
+        }
+    }
+
+    return res;
+}
 
 int main() {
     a_k_s();
 
-    int a[] = {1, 2, 3, 4, 5, 6};
+    ll n, p, q;
+    w(t_) {
+        cin >> n >> q;
+        FOR(i, 0, n) {
+            cin >> a[i];
+        }
+        FOR(i, 0, n) {
+            cin >> b[i];
+        }
 
-    cout << (upper_bound(a, a + 6, 4) - a) << endl;
+        sort(a, a + n);
+        sort(b, b + n);
+
+        while (q--) {
+            cin >> p;
+            cout << solve(n, p) << endl;
+        }
+    }
 
     return 0;
 }

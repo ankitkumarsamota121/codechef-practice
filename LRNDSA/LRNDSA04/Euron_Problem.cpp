@@ -62,12 +62,54 @@ void a_k_s() {
     // #endif
 }
 
+const int N = 1e5 + 5;
+
+ll n, a[N], v[N];
+
+ll inv_count(ll s, ll mid, ll e) {
+    ll i = s, j = mid + 1, k = s, c = 0;
+
+    while (i <= mid && j <= e) {
+        if (a[i] <= a[j]) {
+            v[k++] = a[i++];
+        } else {
+            v[k++] = a[j++];
+            c += (mid - i + 1);
+        }
+    }
+
+    while (i <= mid) v[k++] = a[i++];
+    while (j <= e) v[k++] = a[j++];
+
+    FOR(i, s, e + 1) {
+        a[i] = v[i];
+    }
+
+    return c;
+}
+
+ll solve(ll s, ll e) {
+    if (s >= e) {
+        return 0;
+    }
+
+    ll mid = (s + e) / 2;
+    ll x = solve(s, mid);
+    ll y = solve(mid + 1, e);
+    ll z = inv_count(s, mid, e);
+
+    return x + y + z;
+}
+
 int main() {
-    a_k_s();
+    // a_k_s();
 
-    int a[] = {1, 2, 3, 4, 5, 6};
+    cin >> n;
+    FOR(i, 0, n) {
+        cin >> a[i];
+    }
 
-    cout << (upper_bound(a, a + 6, 4) - a) << endl;
+    cout << solve(0, n - 1) << endl;
 
     return 0;
 }
