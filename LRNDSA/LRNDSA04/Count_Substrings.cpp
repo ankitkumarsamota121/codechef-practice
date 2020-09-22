@@ -65,74 +65,49 @@ void a_k_s() {
 int main() {
     a_k_s();
 
-    ll n, k, q, l, r, i, j, count0, count1;
+    ll n, k, q, l, r, i, j, count0, count1, p, ans;
+    vector<ll> far(100005, 0), presum(100005, 0);
     string s;
     w(t_) {
         cin >> n >> k >> q;
         cin >> s;
 
-        s = ' ' + s;
-
-        vi ans(n + 1, 0);
-        vi presum(n + 1, 0);
-
-        j = 1;
+        j = 0;
         count0 = count1 = 0;
 
-        if (s[1] == '1') {
-            count1++;
-        } else {
-            count0++;
-        }
-
         FOR(i, 1, n + 1) {
-            while (j <= n) {
+            while (count0 <= k && count1 <= k && j <= n) {
                 j++;
-                if (j > n) break;
-                if (s[j] == '1')
-                    count1++;
-                else
+                if (s[j - 1] == '0')
                     count0++;
+                else
+                    count1++;
             }
+            far[i] = j;
+            presum[i] = presum[i - 1] + far[i];
 
-            ans[i] = j;
-
-            if (s[i] == '1')
-                count1--;
-            else
+            if (s[i - 1] == '0')
                 count0--;
-        }
-
-        presum[0] = 0;
-        FOR(i, 1, n + 1) {
-            presum[i] = presum[i - 1] + ans[i];
+            else
+                count1--;
         }
 
         while (q--) {
             cin >> l >> r;
 
-            // ll k = (upper_bound(all(ans), r) - ans.begin()) - 1;
-
-            ll k1 = l - 1;
-            ll k2 = r + 1;
-
-            while (k2 - k1 > 1) {
-                ll km = (k1 + k2) / 2;
-                if (ans[km] <= r)
-                    k1 = km;
+            ll start = l - 1, end = r + 1;
+            while (end - start > 1) {
+                ll mid = (start + end) / 2;
+                if (far[mid] <= r)
+                    start = mid;
                 else
-                    k2 = km;
+                    end = mid;
             }
+            p = start;
 
-            ll k = k1;
+            ans = presum[p] - presum[l - 1] + (r - p) * (r + 1) - (r * (r + 1) / 2 - l * (l - 1) / 2);
 
-            ll x = ((r - k) * (r + 1)) - (r * (r + 1) / 2) - (l * (l - 1) / 2);
-
-            cout << k << endl;
-
-            ll res = presum[k] - presum[l - 1] + x;
-
-            cout << res << '\n';
+            cout << ans << '\n';
         }
     }
 

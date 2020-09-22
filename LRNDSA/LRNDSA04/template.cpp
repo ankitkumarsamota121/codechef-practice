@@ -65,9 +65,9 @@ void a_k_s() {
 int main() {
     a_k_s();
 
-    int a[] = {1, 2, 3, 4, 5, 6};
+    vi a = {1, 2, 3, 4, 5, 6};
 
-    cout << (upper_bound(a, a + 6, 4) - a) << endl;
+    cout << ((a.begin() + 5) - a.begin()) << endl;
 
     return 0;
 }
