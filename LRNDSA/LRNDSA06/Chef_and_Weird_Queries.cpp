@@ -69,5 +69,24 @@ void a_k_s() {
 int main() {
     a_k_s();
 
+    w(t_) {
+        ll y;
+        cin >> y;
+        ll s = 0, e;
+        ll ans = 0;
+        if (y > 700) {
+            s = sqrt(y - 700);
+        }
+        ans += (s * 700);
+        e = sqrt(y);
+
+        for (ll i = s + 1; i <= e; i++) {
+            if (i * i < y) {
+                ans += (y - (i * i));
+            }
+        }
+        cout << ans << '\n';
+    }
+
     return 0;
 }
