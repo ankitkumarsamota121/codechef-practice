@@ -69,5 +69,27 @@ void a_k_s() {
 int main() {
     a_k_s();
 
+    ll n;
+    ll a[100005];
+    w(t_) {
+        cin >> n;
+        FOR(i, 0, n) {
+            cin >> a[i];
+        }
+
+        ll ans = -1;
+
+        priority_queue<ll> pq;
+        FOR(i, 0, n) {
+            ll temp = 0;
+            FOR(j, i - 1, i + 2) {
+                temp += (a[(j + n) % n]);
+            }
+            ans = max(ans, temp);
+        }
+
+        cout << ans << '\n';
+    }
+
     return 0;
 }
