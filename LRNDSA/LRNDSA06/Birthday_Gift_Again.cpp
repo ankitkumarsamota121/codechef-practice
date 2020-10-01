@@ -66,14 +66,58 @@ void a_k_s() {
     // #endif
 }
 
+const ll N = 1e5 + 5;
+
+ll pre0[N], pre1[N];
+
+ll calcPairs(ll x, ll n) {
+    ll len = (x * x + x);
+    ll i = 1;
+    ll j = len;
+
+    ll cnt = 0;
+
+    while (j <= n) {
+        ll c0 = pre0[j] - pre0[i - 1];
+        ll c1 = pre1[j] - pre1[i - 1];
+        if (c0 == (c1 * c1)) cnt++;
+        i++;
+        j++;
+    }
+
+    return cnt;
+}
+
 int main() {
     a_k_s();
 
     ll n;
     string s;
     w(t_) {
+        memset(pre0, 0, sizeof pre0);
+        memset(pre1, 0, sizeof pre1);
+
         cin >> s;
         n = s.length();
+
+        FOR(i, 1, n + 1) {
+            pre0[i] = (s[i - 1] == '0' ? (pre0[i - 1] + 1) : pre0[i - 1]);
+            pre1[i] = (s[i - 1] == '1' ? (pre1[i - 1] + 1) : pre1[i - 1]);
+        }
+
+        // FOR(i, 1, n + 1) {
+        //     cout << pre0[i] << ' ';
+        // }
+        // cout << endl;
+
+        ll x = (sqrt(1 + 4 * n) - 1) / 2;
+
+        ll ans = 0;
+        FOR(i, 1, x + 1) {
+            ans += calcPairs(i, n);
+        }
+
+        cout << ans << '\n';
     }
 
     return 0;
