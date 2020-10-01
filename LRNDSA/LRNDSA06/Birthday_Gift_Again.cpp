@@ -66,47 +66,14 @@ void a_k_s() {
     // #endif
 }
 
-const ll N = 1e5 + 5;
-
-ll maxSubSum(vector<ll> &a, ll n) {
-    ll maxSum = -inf;
-    ll curr = 0;
-    ll prev = 0;
-    FOR(i, 0, n) {
-        curr = max(prev + a[i], a[i]);
-        maxSum = max(maxSum, curr);
-        prev = curr;
-    }
-    return maxSum;
-}
-
 int main() {
     a_k_s();
 
-    ll n, k, a;
+    ll n;
+    string s;
     w(t_) {
-        cin >> n >> k;
-
-        vector<ll> v;
-
-        ll sum = 0;
-        FOR(i, 0, n) {
-            cin >> a;
-            v.pb(a);
-            sum += a;
-        }
-        if (k == 1) {
-            cout << maxSubSum(v, n) << '\n';
-            continue;
-        }
-
-        FOR(i, 0, n) {
-            v.pb(v[i]);
-        }
-
-        ll ans = maxSubSum(v, 2 * n);
-        if (sum > 0) ans += (sum * (k - 2));
-        cout << ans << '\n';
+        cin >> s;
+        n = s.length();
     }
 
     return 0;
