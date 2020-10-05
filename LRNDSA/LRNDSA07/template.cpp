@@ -69,5 +69,7 @@ void a_k_s() {
 int main() {
     a_k_s();
 
+    cout << (~bitset<3>(5)).to_ulong() << endl;
+
     return 0;
 }
