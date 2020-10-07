@@ -66,8 +66,49 @@ void a_k_s() {
     // #endif
 }
 
+const int N = 52;
+
+ll dp[60][60][1380];
+ll l, s;
+
+ll solve(ll i, ll len, ll cost) {
+    // Base Case
+    if (i > N) {
+        return (len == l && cost == s);
+    }
+
+    // Look Up
+    if (dp[i][len][cost] != -1) {
+        return dp[i][len][cost];
+    }
+
+    // Recursive Case
+    // 1. Leave the element
+    ll o1 = solve(i + 1, len, cost);
+
+    // 2. Take the element
+    ll o2 = solve(i + 1, len + 1, cost + i);
+
+    return dp[i][len][cost] = o1 + o2;
+}
+
 int main() {
     a_k_s();
+
+    ll t, T;
+    cin >> T;
+    t = 1;
+    while (t <= T) {
+        memset(dp, -1, sizeof dp);
+
+        cin >> l >> s;
+        ll ans = 0;
+        if (l <= 53 && s < 1380) {
+            ans = solve(1, 0, 0);
+        }
+        cout << "Case " << t << ": " << ans << '\n';
+        t++;
+    }
 
     return 0;
 }
