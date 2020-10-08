@@ -66,8 +66,32 @@ void a_k_s() {
     // #endif
 }
 
+const int N = 1e5 + 5;
+
 int main() {
     a_k_s();
+
+    ll n;
+    ll a[N];
+    ll presum[N];
+    w(t_) {
+        memset(presum, 0, sizeof presum);
+
+        cin >> n;
+        ll mx = -inf;
+        FOR(i, 1, n + 1) {
+            cin >> a[i];
+            presum[i] = max(presum[i - 1] + a[i], a[i]);
+            mx = max(presum[i], mx);
+        }
+
+        FOR(i, 0, n + 1) {
+            cout << presum[i] << ' ';
+        }
+        cout << endl;
+
+        cout << mx << endl;
+    }
 
     return 0;
 }
