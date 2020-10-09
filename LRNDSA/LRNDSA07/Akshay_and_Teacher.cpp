@@ -85,12 +85,30 @@ int main() {
             mx = max(presum[i], mx);
         }
 
-        FOR(i, 0, n + 1) {
-            cout << presum[i] << ' ';
-        }
-        cout << endl;
+        ll temp = 0;
+        ll ans = 0;
+        ll mn = 0;
+        FOR(i, 1, n + 1) {
+            mn = min(a[i], mn);
 
-        cout << mx << endl;
+            if (presum[i] == mx) {
+                if (mn < 0)
+                    ans = max(ans, presum[i] - mn);
+                else
+                    ans = max(ans, presum[i]);
+            }
+
+            if (presum[i] < 0) {
+                mn = 0;
+            }
+        }
+
+        if (*max_element(a + 1, a + n + 1) <= 0) {
+            cout << *max_element(a + 1, a + n + 1) << '\n';
+            continue;
+        }
+
+        cout << ans << '\n';
     }
 
     return 0;
