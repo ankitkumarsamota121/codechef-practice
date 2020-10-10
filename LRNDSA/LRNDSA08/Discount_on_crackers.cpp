@@ -66,6 +66,24 @@ void a_k_s() {
     // #endif
 }
 
+int visited[26];
+
+bool dfs(char src, char dest, vector<char> gr[]) {
+    // cout << src << " " << dest << endl;
+    if (src == dest) return true;
+
+    visited[src - 'a'] = 1;
+
+    for (auto nbr : gr[src - 'a']) {
+        if (!visited[nbr - 'a']) {
+            bool b = dfs(nbr, dest, gr);
+            if (b) return true;
+        }
+    }
+
+    return false;
+}
+
 int main() {
     a_k_s();
 
@@ -74,7 +92,6 @@ int main() {
         cin >> s1 >> s2;
 
         ll m;
-
         vector<char> gr[26];
 
         cin >> m;
@@ -83,12 +100,23 @@ int main() {
             gr[x[0] - 'a'].pb(x[3]);
         }
 
-        for (auto v : gr) {
-            for (auto x : v) {
-                cout << x << ' ';
-            }
-            cout << endl;
+        if (s1.length() != s2.length()) {
+            cout << "NO\n";
+            continue;
         }
+
+        bool ans = true;
+        ll n = s1.length();
+        FOR(i, 0, n) {
+            memset(visited, 0, sizeof visited);
+            bool b = dfs(s1[i], s2[i], gr);
+            if (!b) {
+                ans = false;
+                break;
+            }
+        }
+
+        cout << (ans ? "YES\n" : "NO\n");
     }
 
     return 0;
